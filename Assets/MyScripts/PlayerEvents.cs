@@ -8,6 +8,8 @@ public class PlayerEvents : MonoBehaviour
     #region Events
     public static UnityAction OnTriggerDown = null;
     public static UnityAction OnTriggerUp = null;
+    public static UnityAction OnBackDown = null;
+
     public static UnityAction OnTouchpadUp = null;
     public static UnityAction OnTouchpadDown = null;
     public static UnityAction<OVRInput.Controller, GameObject> OnControllerSource = null;
@@ -108,13 +110,25 @@ public class PlayerEvents : MonoBehaviour
                 OnTriggerUp();
         }
 
-        // Touchpad touch
+        // Touchpad touch down
 
         if (OVRInput.Get(OVRInput.Touch.PrimaryTouchpad)) {
             if (OnTouchpadDown != null)
                 OnTouchpadDown();
         }
 
+        // Touchpad touch up
+        if (OVRInput.Get(OVRInput.Touch.PrimaryTouchpad))
+        {
+            if (OnTouchpadUp != null)
+                OnTouchpadUp();
+        }
+
+        // Back button press
+        if (OVRInput.GetDown(OVRInput.Button.Back)) {
+            if (OnBackDown != null)
+                OnBackDown();
+        }
     }
 
     private OVRInput.Controller UpdateSource(OVRInput.Controller check, OVRInput.Controller previous) {

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
-public class Pointer : MonoBehaviour
+public class MenuPointer : MonoBehaviour
 {
-    public float m_Distance = 10.0f;
+    public float m_Distance = 500.0f;
     public LineRenderer m_LineRenderer = null;
     public LayerMask m_EverythingMask = 0;
-    public LayerMask m_InteractableMask = 0;
+    public LayerMask m_UIMask = 0;
 
     public UnityAction<Vector3, GameObject> OnPointerUpdate = null;
 
@@ -19,22 +18,21 @@ public class Pointer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 hitPoint = UpdateLine();
-
         m_CurrentObject = UpdatePointerStatus();
 
         if (OnPointerUpdate != null)
             OnPointerUpdate(hitPoint, m_CurrentObject);
     }
 
-    private Vector3 UpdateLine() {
-        
+    private Vector3 UpdateLine()
+    {
         // Create ray
         RaycastHit hit = CreateRaycast(m_EverythingMask);
 
@@ -54,23 +52,11 @@ public class Pointer : MonoBehaviour
     private void Awake()
     {
         PlayerEvents.OnControllerSource += UpdateOrigin;
-        PlayerEvents.OnTriggerDown += ProcessTriggerDown;
-
-        PlayerEvents.OnBackDown += GoPauseMenu;
-
-        //PlayerEvents.OnTouchpadDown += ProcessTouchpadDown;
-        //PlayerEvents.OnTouchpadUp += ProcessTouchpadUp;
     }
 
     private void OnDestroy()
     {
         PlayerEvents.OnControllerSource -= UpdateOrigin;
-        PlayerEvents.OnTriggerDown -= ProcessTriggerDown;
-
-        PlayerEvents.OnBackDown -= GoPauseMenu;
-
-        //PlayerEvents.OnTouchpadDown -= ProcessTouchpadDown;
-        //PlayerEvents.OnTouchpadUp -= ProcessTouchpadUp;
     }
 
     private void UpdateOrigin(OVRInput.Controller controller, GameObject controllerObject)
@@ -83,33 +69,33 @@ public class Pointer : MonoBehaviour
         {
             m_LineRenderer.enabled = false;
         }
-        else {
+        else
+        {
             m_LineRenderer.enabled = true;
         }
-
     }
 
-    private GameObject UpdatePointerStatus() {
+    private GameObject UpdatePointerStatus()
+    {
         // Create Raycaster
-        RaycastHit hit = CreateRaycast(m_InteractableMask);
-
+        RaycastHit hit = CreateRaycast(m_UIMask);
         // Check hit
         if (hit.collider)
             return hit.collider.transform.gameObject;
-
         // return
         return null;
     }
 
-    private RaycastHit CreateRaycast(int layer) {
+    private RaycastHit CreateRaycast(int layer)
+    {
         RaycastHit hit;
         Ray ray = new Ray(m_CurrentOrigin.position, m_CurrentOrigin.forward);
         Physics.Raycast(ray, out hit, m_Distance, layer);
-
         return hit;
     }
 
-    private void SetLineColor() {
+    private void SetLineColor()
+    {
         if (!m_LineRenderer)
             return;
 
@@ -119,40 +105,5 @@ public class Pointer : MonoBehaviour
 
         m_LineRenderer.endColor = endColor;
         m_LineRenderer.startColor = startColor;
-    }
-
-    private void ProcessTriggerDown()
-    {
-        if (!m_CurrentObject)
-            return;
-
-        Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
-        interactble.ChangeColor();
-    }
-
-    private void ProcessTouchpadDown() {
-        if (!m_LineRenderer)
-            return;
-
-        Color pressColor = Color.green;
-        pressColor.a = 0.0f;
-
-        m_LineRenderer.startColor = pressColor;
-    }
-
-    private void ProcessTouchpadUp()
-    {
-        if (!m_LineRenderer)
-            return;
-
-        Color pressColor = Color.blue;
-        pressColor.a = 0.0f;
-
-        m_LineRenderer.startColor = pressColor;
-    }
-
-    public void GoPauseMenu()
-    {
-        SceneManager.LoadScene("PauseMenu");
     }
 }
