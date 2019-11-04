@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class PlayerEvents : MonoBehaviour
 {
     #region Events
+    public static UnityAction OnTriggerDown = null;
+    public static UnityAction OnTriggerUp = null;
     public static UnityAction OnTouchpadUp = null;
     public static UnityAction OnTouchpadDown = null;
     public static UnityAction<OVRInput.Controller, GameObject> OnControllerSource = null;
@@ -94,17 +96,25 @@ public class PlayerEvents : MonoBehaviour
     }
 
     private void Input() {
-        // Touchpad dpwn
+        // Trigger down
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) {
+            if (OnTriggerDown != null)
+                OnTriggerDown();
+        }
+
+        // Trigger up
+        if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger)) {
+            if (OnTriggerUp != null)
+                OnTriggerUp();
+        }
+
+        // Touchpad touch
+
+        if (OVRInput.Get(OVRInput.Touch.PrimaryTouchpad)) {
             if (OnTouchpadDown != null)
                 OnTouchpadDown();
         }
 
-        // Toucpad up
-        if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger)) {
-            if (OnTouchpadUp != null)
-                OnTouchpadUp();
-        }
     }
 
     private OVRInput.Controller UpdateSource(OVRInput.Controller check, OVRInput.Controller previous) {

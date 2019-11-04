@@ -53,12 +53,16 @@ public class Pointer : MonoBehaviour
     private void Awake()
     {
         PlayerEvents.OnControllerSource += UpdateOrigin;
+        PlayerEvents.OnTriggerDown += ProcessTriggerDown;
+
         PlayerEvents.OnTouchpadDown += ProcessTouchpadDown;
     }
 
     private void OnDestroy()
     {
         PlayerEvents.OnControllerSource -= UpdateOrigin;
+        PlayerEvents.OnTriggerDown -= ProcessTriggerDown;
+
         PlayerEvents.OnTouchpadDown -= ProcessTouchpadDown;
     }
 
@@ -110,7 +114,7 @@ public class Pointer : MonoBehaviour
         m_LineRenderer.startColor = startColor;
     }
 
-    private void ProcessTouchpadDown()
+    private void ProcessTriggerDown()
     {
         if (!m_CurrentObject)
             return;
@@ -118,5 +122,15 @@ public class Pointer : MonoBehaviour
         Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
         //interactble.Pressed();
         interactble.ChangeColor();
+    }
+
+    private void ProcessTouchpadDown() {
+        if (!m_LineRenderer)
+            return;
+
+        Color pressColor = Color.green;
+        pressColor.a = 0.0f;
+
+        m_LineRenderer.startColor = pressColor;
     }
 }
