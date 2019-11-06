@@ -42,12 +42,6 @@ public class PlayerEvents : MonoBehaviour
         OVRManager.HMDUnmounted -= PlayerLost;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     private void Update()
     {
@@ -65,7 +59,8 @@ public class PlayerEvents : MonoBehaviour
         Input();
     }
 
-    private void CheckForController() {
+    private void CheckForController()
+    {
         OVRInput.Controller controllerCheck = m_Controller;
 
         // Right remotre 
@@ -91,8 +86,8 @@ public class PlayerEvents : MonoBehaviour
         m_Controller = UpdateSource(controllerCheck, m_Controller);
     }
 
-    private void CheckInputSource() {
-
+    private void CheckInputSource()
+    {
         //Update
         m_InputSource = UpdateSource(OVRInput.GetActiveController(), m_InputSource);
     }
@@ -112,16 +107,9 @@ public class PlayerEvents : MonoBehaviour
 
         // Touchpad touch down
 
-        if (OVRInput.Get(OVRInput.Touch.PrimaryTouchpad)) {
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad)) {
             if (OnTouchpadDown != null)
                 OnTouchpadDown();
-        }
-
-        // Touchpad touch up
-        if (OVRInput.Get(OVRInput.Touch.PrimaryTouchpad))
-        {
-            if (OnTouchpadUp != null)
-                OnTouchpadUp();
         }
 
         // Back button press

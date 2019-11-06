@@ -6,35 +6,40 @@ using UnityEngine.SceneManagement;
 
 public class Pointer : MonoBehaviour
 {
-    public float m_Distance = 10.0f;
-    public LineRenderer m_LineRenderer = null;
+    private float m_Distance = 20.0f;
+    private LineRenderer m_LineRenderer = null;
+
     public LayerMask m_EverythingMask = 0;
     public LayerMask m_InteractableMask = 0;
+    public Canvas m_Canvas = null;
+    public Canvas m_VideoCanvas = null;
 
     public UnityAction<Vector3, GameObject> OnPointerUpdate = null;
 
     private Transform m_CurrentOrigin = null;
     private GameObject m_CurrentObject = null;
 
-    // Start is called before the first frame update
-    void Start()
+    private bool audioPlay = false;
+    private bool videoPlay = false;
+
+    // Start 
+    private void Start()
     {
-        
+        m_LineRenderer = transform.GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 hitPoint = UpdateLine();
-
         m_CurrentObject = UpdatePointerStatus();
 
         if (OnPointerUpdate != null)
             OnPointerUpdate(hitPoint, m_CurrentObject);
     }
 
-    private Vector3 UpdateLine() {
-        
+    private Vector3 UpdateLine()
+    {
         // Create ray
         RaycastHit hit = CreateRaycast(m_EverythingMask);
 
@@ -54,23 +59,23 @@ public class Pointer : MonoBehaviour
     private void Awake()
     {
         PlayerEvents.OnControllerSource += UpdateOrigin;
+
         PlayerEvents.OnTriggerDown += ProcessTriggerDown;
 
         PlayerEvents.OnBackDown += GoPauseMenu;
 
-        //PlayerEvents.OnTouchpadDown += ProcessTouchpadDown;
-        //PlayerEvents.OnTouchpadUp += ProcessTouchpadUp;
+        PlayerEvents.OnTouchpadDown += ProcessTouchpadDown;
     }
 
     private void OnDestroy()
     {
         PlayerEvents.OnControllerSource -= UpdateOrigin;
+
         PlayerEvents.OnTriggerDown -= ProcessTriggerDown;
 
         PlayerEvents.OnBackDown -= GoPauseMenu;
 
-        //PlayerEvents.OnTouchpadDown -= ProcessTouchpadDown;
-        //PlayerEvents.OnTouchpadUp -= ProcessTouchpadUp;
+        PlayerEvents.OnTouchpadDown -= ProcessTouchpadDown;
     }
 
     private void UpdateOrigin(OVRInput.Controller controller, GameObject controllerObject)
@@ -86,7 +91,6 @@ public class Pointer : MonoBehaviour
         else {
             m_LineRenderer.enabled = true;
         }
-
     }
 
     private GameObject UpdatePointerStatus() {
@@ -123,36 +127,50 @@ public class Pointer : MonoBehaviour
 
     private void ProcessTriggerDown()
     {
+        
         if (!m_CurrentObject)
             return;
 
-        Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
-        interactble.ChangeColor();
+        if (m_LineRenderer.enabled)
+        {
+            Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
+            interactble.ChangeColor();
+
+            audioPlay = !audioPlay;
+            videoPlay = !videoPlay;
+
+            if (audioPlay)
+            {
+                interactble.PlaySound();
+            }
+            else
+            {
+                interactble.StopSound();
+            }
+
+            if (videoPlay)
+            {
+                m_VideoCanvas.enabled = true;
+                interactble.PlayVideo();
+            }
+            else
+            {
+                m_VideoCanvas.enabled = false;
+                interactble.StopVideo();
+            }
+        }
     }
 
     private void ProcessTouchpadDown() {
         if (!m_LineRenderer)
             return;
 
-        Color pressColor = Color.green;
-        pressColor.a = 0.0f;
-
-        m_LineRenderer.startColor = pressColor;
-    }
-
-    private void ProcessTouchpadUp()
-    {
-        if (!m_LineRenderer)
-            return;
-
-        Color pressColor = Color.blue;
-        pressColor.a = 0.0f;
-
-        m_LineRenderer.startColor = pressColor;
+        m_LineRenderer.enabled = !m_LineRenderer.enabled;
+        m_Canvas.enabled = !m_Canvas.enabled;
     }
 
     public void GoPauseMenu()
     {
-        SceneManager.LoadScene("PauseMenu");
+        SceneManager.LoadScene("MarketScene");
     }
 }

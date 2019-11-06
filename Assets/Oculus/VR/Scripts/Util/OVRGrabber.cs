@@ -150,8 +150,11 @@ public class OVRGrabber : MonoBehaviour
         m_lastRot = transform.rotation;
 
 		float prevFlex = m_prevFlex;
-		// Update values from inputs
-		m_prevFlex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, m_controller);
+        // Update values from inputs
+
+        m_prevFlex = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, m_controller);
+
+        //m_prevFlex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, m_controller);
 
 		CheckForGrabOrRelease(prevFlex);
     }

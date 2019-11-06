@@ -18,6 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 ************************************************************************************/
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -36,6 +37,10 @@ namespace ControllerSelection {
         public float rayDrawDistance = 500;
         [Tooltip("How far away the gaze pointer should be from the camera.")]
         public float gazeDrawDistance = 3;
+
+
+        public LayerMask m_EverythingMask = 0;
+
 
         [HideInInspector]
         public OVRInput.Controller activeController = OVRInput.Controller.None;
@@ -64,13 +69,33 @@ namespace ControllerSelection {
 
         public void SetPointer(Ray ray) {
             if (linePointer != null) {
+                
+                // Create ray
+                RaycastHit hit = CreateRaycast(m_EverythingMask, ray);
+
+                // Default end
+                Vector3 endPosition = ray.origin + (ray.direction * rayDrawDistance);
+
+                // Check hit
+                if (hit.collider != null)
+                    endPosition = hit.point;
+
                 linePointer.SetPosition(0, ray.origin);
-                linePointer.SetPosition(1, ray.origin + ray.direction * rayDrawDistance);
+                //linePointer.SetPosition(1, ray.origin + ray.direction * rayDrawDistance);
+                linePointer.SetPosition(1, endPosition);
             }
 
             if (gazePointer != null) {
                 gazePointer.position = ray.origin + ray.direction * gazeDrawDistance;
             }
+        }
+
+        private RaycastHit CreateRaycast(int layer, Ray ray)
+        {
+            RaycastHit hit;
+            Physics.Raycast(ray, out hit, rayDrawDistance, layer);
+
+            return hit;
         }
 
         public void SetPointerVisibility() {
