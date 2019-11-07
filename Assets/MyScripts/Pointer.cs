@@ -126,6 +126,9 @@ public class Pointer : MonoBehaviour
 
         if (m_LineRenderer.enabled)
         {
+            audioPlay = !audioPlay;
+            videoPlay = !videoPlay;
+
             Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
             interactble.ChangeColor();
 
@@ -137,18 +140,6 @@ public class Pointer : MonoBehaviour
             {
                 interactble.StopSound();
             }
-
-            if (videoPlay)
-            {
-                interactble.PlayVideo();
-            }
-            else
-            {
-                interactble.StopVideo();
-            }
-
-            audioPlay = !audioPlay;
-            videoPlay = !videoPlay;
         }
     }
 

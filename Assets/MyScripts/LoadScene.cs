@@ -26,7 +26,7 @@ public class LoadScene : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
             sliderMarket1.value = progress;
-            progressText.text = progress * 100.0f + "%";
+            progressText.text = progress * 100 + "%";
             yield return null;
         }
     }
