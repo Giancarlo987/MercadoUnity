@@ -1953,7 +1953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2b6a8ed18ef544a98c8da691c9b13c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadingScreen: {fileID: 0}
+  LoadingScreen: {fileID: 1211767440}
   sliderMarket1: {fileID: 992852278}
   progressText: {fileID: 1307749119}
 --- !u!4 &1781727422

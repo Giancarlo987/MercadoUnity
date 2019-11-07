@@ -59,22 +59,16 @@ public class Pointer : MonoBehaviour
     private void Awake()
     {
         PlayerEvents.OnControllerSource += UpdateOrigin;
-
         PlayerEvents.OnTriggerDown += ProcessTriggerDown;
-
         PlayerEvents.OnBackDown += GoPauseMenu;
-
         PlayerEvents.OnTouchpadDown += ProcessTouchpadDown;
     }
 
     private void OnDestroy()
     {
         PlayerEvents.OnControllerSource -= UpdateOrigin;
-
         PlayerEvents.OnTriggerDown -= ProcessTriggerDown;
-
         PlayerEvents.OnBackDown -= GoPauseMenu;
-
         PlayerEvents.OnTouchpadDown -= ProcessTouchpadDown;
     }
 
@@ -127,7 +121,6 @@ public class Pointer : MonoBehaviour
 
     private void ProcessTriggerDown()
     {
-        
         if (!m_CurrentObject)
             return;
 
@@ -135,9 +128,6 @@ public class Pointer : MonoBehaviour
         {
             Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
             interactble.ChangeColor();
-
-            audioPlay = !audioPlay;
-            videoPlay = !videoPlay;
 
             if (audioPlay)
             {
@@ -150,14 +140,15 @@ public class Pointer : MonoBehaviour
 
             if (videoPlay)
             {
-                m_VideoCanvas.enabled = true;
                 interactble.PlayVideo();
             }
             else
             {
-                m_VideoCanvas.enabled = false;
                 interactble.StopVideo();
             }
+
+            audioPlay = !audioPlay;
+            videoPlay = !videoPlay;
         }
     }
 
