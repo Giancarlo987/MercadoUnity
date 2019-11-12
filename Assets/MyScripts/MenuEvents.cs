@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerEvents : MonoBehaviour
+public class MenuEvents : MonoBehaviour
 {
     #region Events
     public static UnityAction OnTriggerDown = null;
@@ -82,7 +82,7 @@ public class PlayerEvents : MonoBehaviour
 
         // Headset
         if (!OVRInput.IsControllerConnected(OVRInput.Controller.LTrackedRemote)
-            && !OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote)) 
+            && !OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote))
         {
             controllerCheck = OVRInput.Controller.Touchpad;
         }
@@ -97,27 +97,32 @@ public class PlayerEvents : MonoBehaviour
         m_InputSource = UpdateSource(OVRInput.GetActiveController(), m_InputSource);
     }
 
-    private void Input() {
+    private void Input()
+    {
         // Trigger down
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) {
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        {
             if (OnTriggerDown != null)
                 OnTriggerDown();
         }
 
         // Trigger up
-        if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger)) {
+        if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
+        {
             if (OnTriggerUp != null)
                 OnTriggerUp();
         }
 
         // Touchpad touch down
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad)) {
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad))
+        {
             if (OnTouchpadDown != null)
                 OnTouchpadDown();
         }
 
         // Back button press
-        if (OVRInput.GetDown(OVRInput.Button.Back)) {
+        if (OVRInput.GetDown(OVRInput.Button.Back))
+        {
             if (OnBackDown != null)
                 OnBackDown();
         }
@@ -137,7 +142,8 @@ public class PlayerEvents : MonoBehaviour
         }
     }
 
-    private OVRInput.Controller UpdateSource(OVRInput.Controller check, OVRInput.Controller previous) {
+    private OVRInput.Controller UpdateSource(OVRInput.Controller check, OVRInput.Controller previous)
+    {
         // if the same values, return 
         if (check == previous)
             return previous;
@@ -153,20 +159,23 @@ public class PlayerEvents : MonoBehaviour
         // send out event
         if (OnControllerSource != null)
             OnControllerSource(check, controllerObject);
-        
+
         // return new value
         return check;
     }
 
-    private void PlayerFound() {
+    private void PlayerFound()
+    {
         m_InputActive = true;
     }
 
-    private void PlayerLost() {
+    private void PlayerLost()
+    {
         m_InputActive = false;
     }
 
-    private Dictionary<OVRInput.Controller, GameObject> CreateControllerSets() {
+    private Dictionary<OVRInput.Controller, GameObject> CreateControllerSets()
+    {
         Dictionary<OVRInput.Controller, GameObject> newSets = new Dictionary<OVRInput.Controller, GameObject>() {
             {OVRInput.Controller.LTrackedRemote, m_LeftAnchor},
             {OVRInput.Controller.RTrackedRemote, m_RightAnchor},
@@ -176,3 +185,4 @@ public class PlayerEvents : MonoBehaviour
         return newSets;
     }
 }
+

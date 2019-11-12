@@ -62,6 +62,9 @@ public class Pointer : MonoBehaviour
         PlayerEvents.OnTriggerDown += ProcessTriggerDown;
         PlayerEvents.OnBackDown += GoPauseMenu;
         PlayerEvents.OnTouchpadDown += ProcessTouchpadDown;
+
+        PlayerEvents.OnTouchpadTouchDown += ChangeLinerendererPressedColor;
+        PlayerEvents.OnTouchpadTouchUp += ChangeLinerendererUnpressedColor;
     }
 
     private void OnDestroy()
@@ -70,6 +73,9 @@ public class Pointer : MonoBehaviour
         PlayerEvents.OnTriggerDown -= ProcessTriggerDown;
         PlayerEvents.OnBackDown -= GoPauseMenu;
         PlayerEvents.OnTouchpadDown -= ProcessTouchpadDown;
+
+        PlayerEvents.OnTouchpadTouchDown -= ChangeLinerendererPressedColor;
+        PlayerEvents.OnTouchpadTouchUp -= ChangeLinerendererUnpressedColor;
     }
 
     private void UpdateOrigin(OVRInput.Controller controller, GameObject controllerObject)
@@ -111,7 +117,7 @@ public class Pointer : MonoBehaviour
         if (!m_LineRenderer)
             return;
 
-        Color startColor = Color.blue;
+        Color startColor = Color.gray;
         Color endColor = Color.white;
         endColor.a = 0.0f;
 
@@ -126,7 +132,7 @@ public class Pointer : MonoBehaviour
 
         if (m_LineRenderer.enabled)
         {
-            audioPlay = !audioPlay;
+            
             videoPlay = !videoPlay;
 
             Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
@@ -140,6 +146,8 @@ public class Pointer : MonoBehaviour
             {
                 interactble.StopSound();
             }
+
+            audioPlay = !audioPlay;
         }
     }
 
@@ -153,6 +161,25 @@ public class Pointer : MonoBehaviour
 
     public void GoPauseMenu()
     {
-        SceneManager.LoadScene("MarketScene");
+        SceneManager.LoadScene(0);
+    }
+
+    private void ChangeLinerendererPressedColor() {
+        if (!m_LineRenderer)
+            return;
+
+        Color startColor = Color.blue;
+
+        m_LineRenderer.startColor = startColor;
+    }
+
+    private void ChangeLinerendererUnpressedColor()
+    {
+        if (!m_LineRenderer)
+            return;
+
+        Color startColor = Color.gray;
+
+        m_LineRenderer.startColor = startColor;
     }
 }

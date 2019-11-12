@@ -14,7 +14,7 @@ public class Interactable : MonoBehaviour
     void Start()
     {
         oldMaterial = transform.gameObject.GetComponent<Renderer>().material;
-        newMaterial = Resources.Load<Material>("MyMaterials/CubeMaterial2");
+        newMaterial = Resources.Load<Material>("MyMaterials/CubeMaterial4");
         audioSource = transform.GetComponent<AudioSource>();
     }
 

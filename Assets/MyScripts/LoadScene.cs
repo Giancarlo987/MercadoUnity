@@ -16,6 +16,16 @@ public class LoadScene : MonoBehaviour
         StartCoroutine(LoadAsync(sceneIndex));
     }
 
+    public void LoadLevelMarket2(int sceneIndex)
+    {
+        StartCoroutine(LoadAsync(sceneIndex));
+    }
+
+    public void LoadLevelMarket3(int sceneIndex)
+    {
+        StartCoroutine(LoadAsync(sceneIndex));
+    }
+
     IEnumerator LoadAsync(int sceneIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
@@ -26,7 +36,9 @@ public class LoadScene : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
             sliderMarket1.value = progress;
-            progressText.text = progress * 100 + "%";
+
+            progressText.text = (progress * 100.0f).ToString() + '%';
+
             yield return null;
         }
     }

@@ -7,6 +7,7 @@ public class RetunrPosition : MonoBehaviour
 
     private Vector3 initialPosition, driftPosition;
     private Quaternion initialRotation, driftRotation;
+    private Collider m_Collider;
     private Rigidbody rb;
 
     private float count = 0;
@@ -26,6 +27,8 @@ public class RetunrPosition : MonoBehaviour
         initialRotation = transform.rotation;
 
         rb = transform.GetComponent<Rigidbody>();
+
+        m_Collider = transform.GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -70,6 +73,8 @@ public class RetunrPosition : MonoBehaviour
         isDrifting = true;
         rb.isKinematic = true;
 
+        m_Collider.isTrigger = !m_Collider.isTrigger;
+
         driftTimer = 0;
 
         driftPosition = transform.position;
@@ -83,6 +88,8 @@ public class RetunrPosition : MonoBehaviour
     {
         isDrifting = false;
         rb.isKinematic = false;
+
+        m_Collider.isTrigger = !m_Collider.isTrigger;
 
         transform.position = initialPosition;
         transform.rotation = initialRotation;
