@@ -12,7 +12,6 @@ public class Pointer : MonoBehaviour
     public LayerMask m_EverythingMask = 0;
     public LayerMask m_InteractableMask = 0;
     public Canvas m_Canvas = null;
-    public Canvas m_VideoCanvas = null;
 
     public UnityAction<Vector3, GameObject> OnPointerUpdate = null;
 
@@ -132,12 +131,10 @@ public class Pointer : MonoBehaviour
 
         if (m_LineRenderer.enabled)
         {
-            
-            videoPlay = !videoPlay;
-
             Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
             interactble.ChangeColor();
 
+            // Play Audio
             if (audioPlay)
             {
                 interactble.PlaySound();
@@ -148,6 +145,18 @@ public class Pointer : MonoBehaviour
             }
 
             audioPlay = !audioPlay;
+
+            // Play Video
+            if (videoPlay)
+            {
+                 
+                interactble.PlayVideo();
+            }
+            else
+            {
+                interactble.StopVideo();
+            }
+            videoPlay = !videoPlay;
         }
     }
 

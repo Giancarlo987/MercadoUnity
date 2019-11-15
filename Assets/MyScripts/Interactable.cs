@@ -47,10 +47,12 @@ public class Interactable : MonoBehaviour
     }
 
     public void PlayVideo() {
+        //transform.GetComponentInChildren<VideoPlayer>().Play();
         video.Play();
     }
 
     public void StopVideo(){
+        //transform.GetComponentInChildren<VideoPlayer>().Stop();
         video.Stop();
     }
 }
