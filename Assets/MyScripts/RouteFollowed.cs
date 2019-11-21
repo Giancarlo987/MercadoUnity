@@ -9,18 +9,33 @@ public class RouteFollowed : MonoBehaviour
     private float Timer;
     private int currentNode;
 
+    private bool obstacle;
+
+
     private static Vector3 currentPositionHolder;
     private static Quaternion targetRotation;
 
     private Node [] NodePath;
 
 
+    private void Awake()
+    {
+        ObstacleTrigger.OnObstacleEnter += reduceSpeed;
+        ObstacleTrigger.OnObstacleExit += returnSpeed;
+    }
+
+    private void OnDestroy()
+    {
+        ObstacleTrigger.OnObstacleEnter -= reduceSpeed;
+        ObstacleTrigger.OnObstacleExit -= returnSpeed;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         NodePath = GetComponentsInChildren<Node>();
         car = GameObject.Find("Car");
-        speed = 1.0f;
+        speed = .7f;
     }
 
     // Update is called once per frame
@@ -39,7 +54,6 @@ public class RouteFollowed : MonoBehaviour
 
     private void Movement() 
     {
-        //car.transform.LookAt(currentPositionHolder);
         car.transform.rotation = Quaternion.Slerp(car.transform.rotation, targetRotation, Timer);
         if (car.transform.position != currentPositionHolder) 
         {
@@ -60,5 +74,17 @@ public class RouteFollowed : MonoBehaviour
             CheckNode();
         }
 
+    }
+
+    public void reduceSpeed () 
+    {
+        speed = .01f;
+        Debug.Log(speed);
+    }
+
+    public void returnSpeed()
+    {
+        speed = .7f;
+        Debug.Log(speed);
     }
 }
