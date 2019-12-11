@@ -26,6 +26,11 @@ public class LoadScene : MonoBehaviour
         StartCoroutine(LoadAsync(sceneIndex));
     }
 
+    public void LoadLevelMarket4(int sceneIndex)
+    {
+        StartCoroutine(LoadAsync(sceneIndex));
+    }
+
     IEnumerator LoadAsync(int sceneIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
