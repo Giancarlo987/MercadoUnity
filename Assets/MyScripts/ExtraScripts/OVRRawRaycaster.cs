@@ -126,9 +126,6 @@ namespace ControllerSelection {
                         padDown = null;
                     }
 
-
-
-
                     if (OVRInput.GetDown(primaryButton, activeController)) {
                         triggerDown = lastHit;
                     }

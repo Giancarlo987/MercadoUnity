@@ -6,16 +6,8 @@ using UnityEngine.Events;
 public class MenuEvents : MonoBehaviour
 {
     #region Events
-    public static UnityAction OnTriggerDown = null;
-    public static UnityAction OnTriggerUp = null;
-    public static UnityAction OnBackDown = null;
-
-    public static UnityAction OnTouchpadUp = null;
-    public static UnityAction OnTouchpadDown = null;
-
     public static UnityAction OnTouchpadTouchDown = null;
     public static UnityAction OnTouchpadTouchUp = null;
-
 
     public static UnityAction<OVRInput.Controller, GameObject> OnControllerSource = null;
     #endregion
@@ -99,34 +91,6 @@ public class MenuEvents : MonoBehaviour
 
     private void Input()
     {
-        // Trigger down
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
-        {
-            if (OnTriggerDown != null)
-                OnTriggerDown();
-        }
-
-        // Trigger up
-        if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
-        {
-            if (OnTriggerUp != null)
-                OnTriggerUp();
-        }
-
-        // Touchpad touch down
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad))
-        {
-            if (OnTouchpadDown != null)
-                OnTouchpadDown();
-        }
-
-        // Back button press
-        if (OVRInput.GetDown(OVRInput.Button.Back))
-        {
-            if (OnBackDown != null)
-                OnBackDown();
-        }
-
         // Touchpad touch pressed
         if (OVRInput.GetDown(OVRInput.Touch.PrimaryTouchpad))
         {

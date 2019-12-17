@@ -55,9 +55,6 @@ public class MenuPointer : MonoBehaviour
     private void Awake()
     {
         MenuEvents.OnControllerSource += UpdateOrigin;
-        MenuEvents.OnTriggerDown += ProcessTriggerDown;
-        MenuEvents.OnBackDown += GoPauseMenu;
-        MenuEvents.OnTouchpadDown += ProcessTouchpadDown;
 
         MenuEvents.OnTouchpadTouchDown += ChangeLinerendererPressedColor;
         MenuEvents.OnTouchpadTouchUp += ChangeLinerendererUnpressedColor;
@@ -66,9 +63,6 @@ public class MenuPointer : MonoBehaviour
     private void OnDestroy()
     {
         MenuEvents.OnControllerSource -= UpdateOrigin;
-        MenuEvents.OnTriggerDown -= ProcessTriggerDown;
-        MenuEvents.OnBackDown -= GoPauseMenu;
-        MenuEvents.OnTouchpadDown -= ProcessTouchpadDown;
 
         MenuEvents.OnTouchpadTouchDown -= ChangeLinerendererPressedColor;
         MenuEvents.OnTouchpadTouchUp -= ChangeLinerendererUnpressedColor;
@@ -80,6 +74,7 @@ public class MenuPointer : MonoBehaviour
         m_CurrentOrigin = controllerObject.transform;
 
         // Laser visible
+
         if (controller == OVRInput.Controller.Touchpad)
         {
             m_LineRenderer.enabled = false;
@@ -93,7 +88,7 @@ public class MenuPointer : MonoBehaviour
     private GameObject UpdatePointerStatus()
     {
         // Create Raycaster
-        RaycastHit hit = CreateRaycast(m_InteractableMask);
+        RaycastHit hit = CreateRaycast(m_EverythingMask);
 
         // Check hit
         if (hit.collider)
@@ -116,40 +111,15 @@ public class MenuPointer : MonoBehaviour
     {
         if (!m_LineRenderer)
             return;
-
-        Color startColor = Color.gray;
-        Color endColor = Color.white;
+            
+        Color startColor = Color.white;
+        Color endColor = Color.clear;
         endColor.a = 0.0f;
 
         m_LineRenderer.endColor = endColor;
         m_LineRenderer.startColor = startColor;
     }
-
-    private void ProcessTriggerDown()
-    {
-        if (!m_CurrentObject)
-            return;
-
-        if (m_LineRenderer.enabled)
-        {
-            Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
-            interactble.ChangeColor();     
-        }
-    }
-
-    private void ProcessTouchpadDown()
-    {
-        if (!m_LineRenderer)
-            return;
-
-        m_LineRenderer.enabled = !m_LineRenderer.enabled;
-    }
-
-    public void GoPauseMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
-
+    
     private void ChangeLinerendererPressedColor()
     {
         if (!m_LineRenderer)
@@ -165,7 +135,7 @@ public class MenuPointer : MonoBehaviour
         if (!m_LineRenderer)
             return;
 
-        Color startColor = Color.gray;
+        Color startColor = Color.white;
 
         m_LineRenderer.startColor = startColor;
     }

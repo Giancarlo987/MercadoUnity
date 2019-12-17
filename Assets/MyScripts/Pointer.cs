@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Pointer : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class Pointer : MonoBehaviour
     public LayerMask m_EverythingMask = 0;
     public LayerMask m_InteractableMask = 0;
     public Canvas m_Canvas = null;
+    public TextMeshProUGUI m_Subtitle = null;
+
+    public Canvas m_SubMenu = null;
 
     public UnityAction<Vector3, GameObject> OnPointerUpdate = null;
 
@@ -19,12 +23,12 @@ public class Pointer : MonoBehaviour
     private GameObject m_CurrentObject = null;
 
     private bool audioPlay = false;
-    private bool videoPlay = false;
 
     // Start 
     private void Start()
     {
         m_LineRenderer = transform.GetComponent<LineRenderer>();
+        m_Canvas.enabled = !m_Canvas.enabled; ;
     }
 
     // Update is called once per frame
@@ -33,8 +37,31 @@ public class Pointer : MonoBehaviour
         Vector3 hitPoint = UpdateLine();
         m_CurrentObject = UpdatePointerStatus();
 
+        ChekObjetPointed();
+
         if (OnPointerUpdate != null)
             OnPointerUpdate(hitPoint, m_CurrentObject);
+    }
+
+    private void ChekObjetPointed()
+    {
+        if (!m_CurrentObject)
+            return;
+        else if (!m_LineRenderer.enabled)
+            return;
+        else if (m_CurrentObject.tag.Equals("Salesman"))
+        {
+            m_Canvas.enabled = true;
+
+            if (audioPlay)
+                m_Subtitle.text = "Press the trigger to PLAY the audio";
+            else
+                m_Subtitle.text = "Press the trigger to STOP the audio";
+        }
+        else
+        {
+            m_Canvas.enabled = false;
+        }
     }
 
     private Vector3 UpdateLine()
@@ -116,7 +143,7 @@ public class Pointer : MonoBehaviour
         if (!m_LineRenderer)
             return;
 
-        Color startColor = Color.gray;
+        Color startColor = Color.white;
         Color endColor = Color.white;
         endColor.a = 0.0f;
 
@@ -134,29 +161,21 @@ public class Pointer : MonoBehaviour
             Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
             interactble.ChangeColor();
 
+            //Salesman salesman = m_CurrentObject.GetComponent<Salesman>();
+
             // Play Audio
-            if (audioPlay)
+            if (!audioPlay)
             {
                 interactble.PlaySound();
+                //salesman.PlaySound();
             }
             else
             {
                 interactble.StopSound();
+                //salesman.StopSound();
             }
 
             audioPlay = !audioPlay;
-
-            // Play Video
-            if (videoPlay)
-            {
-                 
-                interactble.PlayVideo();
-            }
-            else
-            {
-                interactble.StopVideo();
-            }
-            videoPlay = !videoPlay;
         }
     }
 
@@ -168,9 +187,25 @@ public class Pointer : MonoBehaviour
         m_Canvas.enabled = !m_Canvas.enabled;
     }
 
+    public void DisplaySubMenu()
+    {
+        // Missing function
+        if (SubMenu.scenePaused)
+            SubMenu.scenePaused = false;
+        else
+            SubMenu.scenePaused = true; 
+    }
+
     public void GoPauseMenu()
     {
-        SceneManager.LoadScene(0);
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            DisplaySubMenu();
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     private void ChangeLinerendererPressedColor() {
@@ -187,7 +222,7 @@ public class Pointer : MonoBehaviour
         if (!m_LineRenderer)
             return;
 
-        Color startColor = Color.gray;
+        Color startColor = Color.white;
 
         m_LineRenderer.startColor = startColor;
     }

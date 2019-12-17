@@ -31,6 +31,11 @@ public class LoadScene : MonoBehaviour
         StartCoroutine(LoadAsync(sceneIndex));
     }
 
+    public void OnButttonExitClicked()
+    {
+        Application.Quit();
+    }
+
     IEnumerator LoadAsync(int sceneIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);

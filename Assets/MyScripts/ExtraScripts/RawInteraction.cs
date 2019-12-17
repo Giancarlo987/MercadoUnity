@@ -21,12 +21,15 @@ limitations under the License.
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class RawInteraction : MonoBehaviour {
     protected Material oldHoverMat;
     public Material yellowMat;
  
-    public UnityEngine.UI.Text outText;
+    //public UnityEngine.UI.Text outText;
+
+    public TextMeshProUGUI outText;
 
     public void OnHoverEnter(Transform t) {
         
