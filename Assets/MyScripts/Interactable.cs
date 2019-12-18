@@ -10,6 +10,8 @@ public class Interactable : MonoBehaviour
     private Material oldMaterial;
     private AudioSource audioSource;
 
+    public bool isAudioPlaying = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,18 +26,8 @@ public class Interactable : MonoBehaviour
         
     }
 
-
-    public void Pressed()
-    {
-        MeshRenderer renderer = GetComponent<MeshRenderer>();
-        bool flip = !renderer.enabled;
-
-        renderer.enabled = flip;
-    }
-
     public void ChangeColor()
     {
-
         transform.gameObject.GetComponent<Renderer>().material = newMaterial;
         newMaterial = oldMaterial;
         oldMaterial = transform.gameObject.GetComponent<Renderer>().material;
@@ -44,10 +36,12 @@ public class Interactable : MonoBehaviour
     public void PlaySound()
     {
         audioSource.Play();
+        isAudioPlaying = true;
     }
 
     public void StopSound()
     {
         audioSource.Stop();
+        isAudioPlaying = false;
     }
 }

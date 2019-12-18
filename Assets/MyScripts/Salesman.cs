@@ -6,6 +6,8 @@ public class Salesman : MonoBehaviour
 {
     private AudioSource audioSource;
 
+    public bool isAudioPlaying = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,21 +20,15 @@ public class Salesman : MonoBehaviour
 
     }
 
-    public void Pressed()
-    {
-        MeshRenderer renderer = GetComponent<MeshRenderer>();
-        bool flip = !renderer.enabled;
-
-        renderer.enabled = flip;
-    }
-
     public void PlaySound()
     {
         audioSource.Play();
+        isAudioPlaying = true;
     }
 
     public void StopSound()
     {
         audioSource.Stop();
+        isAudioPlaying = false;
     }
 }

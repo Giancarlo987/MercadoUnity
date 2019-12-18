@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class Pointer : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class Pointer : MonoBehaviour
     private LineRenderer m_LineRenderer = null;
 
     public LayerMask m_EverythingMask = 0;
-    public LayerMask m_InteractableMask = 0;
-    public Canvas m_Canvas = null;
+    //public LayerMask m_InteractableMask = 0;
+    public Canvas m_SubtitleCanvas = null;
+    
     public TextMeshProUGUI m_Subtitle = null;
 
     public Canvas m_SubMenu = null;
@@ -28,7 +30,8 @@ public class Pointer : MonoBehaviour
     private void Start()
     {
         m_LineRenderer = transform.GetComponent<LineRenderer>();
-        m_Canvas.enabled = !m_Canvas.enabled; ;
+        m_SubtitleCanvas.enabled = !m_SubtitleCanvas.enabled;
+        m_SubMenu.enabled = !m_SubMenu.enabled;
     }
 
     // Update is called once per frame
@@ -47,20 +50,25 @@ public class Pointer : MonoBehaviour
     {
         if (!m_CurrentObject)
             return;
-        else if (!m_LineRenderer.enabled)
+        if (!m_LineRenderer.enabled)
             return;
-        else if (m_CurrentObject.tag.Equals("Salesman"))
-        {
-            m_Canvas.enabled = true;
 
-            if (audioPlay)
+        if (m_CurrentObject.tag.Equals("Salesman"))
+        {
+            if (!audioPlay)
+            {
+                m_SubtitleCanvas.enabled = true;
                 m_Subtitle.text = "Press the trigger to PLAY the audio";
+            }
             else
+            {
                 m_Subtitle.text = "Press the trigger to STOP the audio";
+            }
+            
         }
         else
         {
-            m_Canvas.enabled = false;
+            m_SubtitleCanvas.enabled = false;
         }
     }
 
@@ -121,7 +129,7 @@ public class Pointer : MonoBehaviour
 
     private GameObject UpdatePointerStatus() {
         // Create Raycaster
-        RaycastHit hit = CreateRaycast(m_InteractableMask);
+        RaycastHit hit = CreateRaycast(m_EverythingMask);
 
         // Check hit
         if (hit.collider)
@@ -158,24 +166,23 @@ public class Pointer : MonoBehaviour
 
         if (m_LineRenderer.enabled)
         {
+            Salesman salesman = m_CurrentObject.GetComponent<Salesman>();
+
             Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
             interactble.ChangeColor();
 
-            //Salesman salesman = m_CurrentObject.GetComponent<Salesman>();
-
-            // Play Audio
-            if (!audioPlay)
-            {
+            // Play cube's audio
+            if (!interactble.isAudioPlaying)
                 interactble.PlaySound();
-                //salesman.PlaySound();
-            }
             else
-            {
                 interactble.StopSound();
-                //salesman.StopSound();
-            }
+            
 
-            audioPlay = !audioPlay;
+            // Play cube's audio
+            if (!salesman.isAudioPlaying)
+                salesman.PlaySound();
+            else
+                salesman.StopSound();
         }
     }
 
@@ -184,28 +191,30 @@ public class Pointer : MonoBehaviour
             return;
 
         m_LineRenderer.enabled = !m_LineRenderer.enabled;
-        m_Canvas.enabled = !m_Canvas.enabled;
+        m_SubtitleCanvas.enabled = !m_SubtitleCanvas.enabled;
     }
 
     public void DisplaySubMenu()
     {
         // Missing function
-        if (SubMenu.scenePaused)
+        /*if (SubMenu.scenePaused)
             SubMenu.scenePaused = false;
         else
-            SubMenu.scenePaused = true; 
+            SubMenu.scenePaused = true; */
     }
 
     public void GoPauseMenu()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 3)
+        /*if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             DisplaySubMenu();
         }
         else
         {
             SceneManager.LoadScene(0);
-        }
+        }*/
+
+        DisplaySubMenu();
     }
 
     private void ChangeLinerendererPressedColor() {
