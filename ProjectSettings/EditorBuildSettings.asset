@@ -5,19 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 0ee416f0b91034346bbef00f3c4c4bb4
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Wholesaler.unity
     guid: 74f1bc752b2a4aa4e8b8e715528faf98
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Market.unity
     guid: ee88b7d7480658a4a9147b40519554e6
   - enabled: 1
     path: Assets/Scenes/Supermarket.unity
     guid: 0f6cbf70e2c15324db8c2f015ddf4bf3
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Minimarket.unity
     guid: 47b612c17c0ac4643943b7714dd7fb29
   m_configObjects: {}

@@ -18,7 +18,7 @@ public class Pointer : MonoBehaviour
     public TextMeshProUGUI m_Subtitle = null;
 
     public Canvas m_SubMenu = null;
-
+  
     public UnityAction<Vector3, GameObject> OnPointerUpdate = null;
 
     private Transform m_CurrentOrigin = null;
@@ -30,8 +30,7 @@ public class Pointer : MonoBehaviour
     private void Start()
     {
         m_LineRenderer = transform.GetComponent<LineRenderer>();
-        m_SubtitleCanvas.enabled = !m_SubtitleCanvas.enabled;
-        m_SubMenu.enabled = !m_SubMenu.enabled;
+        m_SubtitleCanvas.enabled = false;
     }
 
     // Update is called once per frame
@@ -55,16 +54,12 @@ public class Pointer : MonoBehaviour
 
         if (m_CurrentObject.tag.Equals("Salesman"))
         {
+            m_SubtitleCanvas.enabled = true;
+
             if (!audioPlay)
-            {
-                m_SubtitleCanvas.enabled = true;
                 m_Subtitle.text = "Press the trigger to PLAY the audio";
-            }
             else
-            {
                 m_Subtitle.text = "Press the trigger to STOP the audio";
-            }
-            
         }
         else
         {
@@ -94,7 +89,7 @@ public class Pointer : MonoBehaviour
     {
         PlayerEvents.OnControllerSource += UpdateOrigin;
         PlayerEvents.OnTriggerDown += ProcessTriggerDown;
-        PlayerEvents.OnBackDown += GoPauseMenu;
+        PlayerEvents.OnBackDown += BackButtonDown;
         PlayerEvents.OnTouchpadDown += ProcessTouchpadDown;
 
         PlayerEvents.OnTouchpadTouchDown += ChangeLinerendererPressedColor;
@@ -105,7 +100,7 @@ public class Pointer : MonoBehaviour
     {
         PlayerEvents.OnControllerSource -= UpdateOrigin;
         PlayerEvents.OnTriggerDown -= ProcessTriggerDown;
-        PlayerEvents.OnBackDown -= GoPauseMenu;
+        PlayerEvents.OnBackDown -= BackButtonDown;
         PlayerEvents.OnTouchpadDown -= ProcessTouchpadDown;
 
         PlayerEvents.OnTouchpadTouchDown -= ChangeLinerendererPressedColor;
@@ -177,8 +172,7 @@ public class Pointer : MonoBehaviour
             else
                 interactble.StopSound();
             
-
-            // Play cube's audio
+            // Play salesman's audio
             if (!salesman.isAudioPlaying)
                 salesman.PlaySound();
             else
@@ -194,27 +188,17 @@ public class Pointer : MonoBehaviour
         m_SubtitleCanvas.enabled = !m_SubtitleCanvas.enabled;
     }
 
-    public void DisplaySubMenu()
+    public void BackButtonDown()
     {
-        // Missing function
-        /*if (SubMenu.scenePaused)
-            SubMenu.scenePaused = false;
-        else
-            SubMenu.scenePaused = true; */
-    }
-
-    public void GoPauseMenu()
-    {
-        /*if (SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            DisplaySubMenu();
-        }
-        else
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             SceneManager.LoadScene(0);
-        }*/
+            StaticDistribution.dist1 = false;
+            StaticDistribution.dist2 = false;
+        }
 
-        DisplaySubMenu();
+        SceneManager.LoadScene(0);
+        
     }
 
     private void ChangeLinerendererPressedColor() {
@@ -222,7 +206,6 @@ public class Pointer : MonoBehaviour
             return;
 
         Color startColor = Color.blue;
-
         m_LineRenderer.startColor = startColor;
     }
 
@@ -232,7 +215,6 @@ public class Pointer : MonoBehaviour
             return;
 
         Color startColor = Color.white;
-
         m_LineRenderer.startColor = startColor;
     }
 }
