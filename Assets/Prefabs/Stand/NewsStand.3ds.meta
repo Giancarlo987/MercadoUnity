@@ -1,0 +1,186 @@
+fileFormatVersion: 2
+guid: 7c58a7e4c8eec42549366245ca45cc5a
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: BackDoor
+    100002: CashRegi~0
+    100004: MainStand
+    100006: News1
+    100008: News2
+    100010: News3
+    100012: //RootNode
+    100014: Seat
+    100016: Window1
+    100018: Window2
+    100020: Window3
+    100022: Window4
+    400000: BackDoor
+    400002: CashRegi~0
+    400004: MainStand
+    400006: News1
+    400008: News2
+    400010: News3
+    400012: //RootNode
+    400014: Seat
+    400016: Window1
+    400018: Window2
+    400020: Window3
+    400022: Window4
+    2100000: Books01
+    2100002: CardBoard
+    2100004: CashRegister
+    2100006: ChairLeather
+    2100008: ChairMetal
+    2100010: Comics01
+    2100012: DecoMetal01
+    2100014: DecoMetal02
+    2100016: DecoMetal03
+    2100018: Floor2
+    2100020: FrontMagazine1
+    2100022: FrontMagazine2
+    2100024: FrontMagazine3
+    2100026: FrontMagazine4
+    2100028: FrontNewsPaper1
+    2100030: Gate1
+    2100032: InsideNewsSta~5
+    2100034: InsideNewsSt~20
+    2100036: Labels01
+    2100038: Labels02
+    2100040: Labels03
+    2100042: Magazines01
+    2100044: Magazines02
+    2100046: Magazines03
+    2100048: Magazines04
+    2100050: Magazines05
+    2100052: Magazines06
+    2100054: Magazines07
+    2100056: Magazines08
+    2100058: Magazines09
+    2100060: MainNewsStand
+    2100062: MetalPanels1
+    2100064: MetalPanels2
+    2100066: Newspapers01
+    2100068: Newspapers02
+    2100070: Newspapers03
+    2100072: RoofNewsStand
+    2100074: Tent
+    2300000: BackDoor
+    2300002: CashRegi~0
+    2300004: MainStand
+    2300006: News1
+    2300008: News2
+    2300010: News3
+    2300012: Seat
+    2300014: Window1
+    2300016: Window2
+    2300018: Window3
+    2300020: Window4
+    3300000: BackDoor
+    3300002: CashRegi~0
+    3300004: MainStand
+    3300006: News1
+    3300008: News2
+    3300010: News3
+    3300012: Seat
+    3300014: Window1
+    3300016: Window2
+    3300018: Window3
+    3300020: Window4
+    4300000: MainStand
+    4300002: BackDoor
+    4300004: Window1
+    4300006: Window2
+    4300008: Window3
+    4300010: Window4
+    4300012: Seat
+    4300014: News2
+    4300016: News1
+    4300018: News3
+    4300020: CashRegi~0
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

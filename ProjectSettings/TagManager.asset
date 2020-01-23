@@ -10,6 +10,11 @@ TagManager:
   - Product1
   - Product2
   - Salesman
+  - Item
+  - Naranja
+  - Mango
+  - Cesto de Frutas
+  - Vendedor de Naranjas
   layers:
   - Default
   - TransparentFX

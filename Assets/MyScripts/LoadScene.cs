@@ -31,6 +31,11 @@ public class LoadScene : MonoBehaviour
         StartCoroutine(LoadAsync(sceneIndex));
     }
 
+    public void LoadLevelMarket5(int sceneIndex)
+    {
+        StartCoroutine(LoadAsync(sceneIndex));
+    }
+
     public void OnButttonExitClicked()
     {
         Application.Quit();

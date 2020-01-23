@@ -16,9 +16,7 @@ public class Pointer : MonoBehaviour
     public Canvas m_SubtitleCanvas = null;
     
     public TextMeshProUGUI m_Subtitle = null;
-
-    public Canvas m_SubMenu = null;
-  
+      
     public UnityAction<Vector3, GameObject> OnPointerUpdate = null;
 
     private Transform m_CurrentOrigin = null;
@@ -30,7 +28,6 @@ public class Pointer : MonoBehaviour
     private void Start()
     {
         m_LineRenderer = transform.GetComponent<LineRenderer>();
-        m_SubtitleCanvas.enabled = false;
     }
 
     // Update is called once per frame
@@ -163,20 +160,26 @@ public class Pointer : MonoBehaviour
         {
             Salesman salesman = m_CurrentObject.GetComponent<Salesman>();
 
-            Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
-            interactble.ChangeColor();
+            //Interactable interactble = m_CurrentObject.GetComponent<Interactable>();
+            //interactble.ChangeColor();
 
             // Play cube's audio
-            if (!interactble.isAudioPlaying)
-                interactble.PlaySound();
-            else
-                interactble.StopSound();
-            
+            //if (!interactble.isAudioPlaying)
+            //  interactble.PlaySound();
+            //else
+            //s  interactble.StopSound();
+
             // Play salesman's audio
             if (!salesman.isAudioPlaying)
+            {
                 salesman.PlaySound();
+                audioPlay = true;
+            }
             else
+            {
                 salesman.StopSound();
+                audioPlay = false;
+            }
         }
     }
 

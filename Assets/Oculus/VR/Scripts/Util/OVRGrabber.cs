@@ -151,9 +151,7 @@ public class OVRGrabber : MonoBehaviour
 
 		float prevFlex = m_prevFlex;
         // Update values from inputs
-
         m_prevFlex = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, m_controller);
-
         //m_prevFlex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, m_controller);
 
 		CheckForGrabOrRelease(prevFlex);
@@ -374,9 +372,10 @@ public class OVRGrabber : MonoBehaviour
 
 	protected virtual void OffhandGrabbed(OVRGrabbable grabbable)
     {
+        Rigidbody rb = transform.GetComponent<Rigidbody>();
         if (m_grabbedObj == grabbable)
         {
-            GrabbableRelease(Vector3.zero, Vector3.zero);
+            GrabbableRelease(rb.velocity, rb.angularVelocity);
         }
     }
 }

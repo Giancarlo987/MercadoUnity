@@ -362,17 +362,17 @@ public class OVRPlayerController : MonoBehaviour
 
 
 
-			moveInfluence = Acceleration * 0.1f * MoveScale * MoveScaleMultiplier;
+			moveInfluence = Acceleration * 0.2f * MoveScale * MoveScaleMultiplier;
 
 #if !UNITY_ANDROID // LeftTrigger not avail on Android game pad
 			moveInfluence *= 1.0f + OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
 #endif
 
-			//Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
             Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+            //Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
 
-            // If speed quantization is enabled, adjust the input to the number of fixed speed steps.
-            if (FixedSpeedSteps > 0)
+			// If speed quantization is enabled, adjust the input to the number of fixed speed steps.
+			if (FixedSpeedSteps > 0)
 			{
 				primaryAxis.y = Mathf.Round(primaryAxis.y * FixedSpeedSteps) / FixedSpeedSteps;
 				primaryAxis.x = Mathf.Round(primaryAxis.x * FixedSpeedSteps) / FixedSpeedSteps;

@@ -2493,7 +2493,7 @@ PrefabInstance:
     - target: {fileID: 7660895429550155094, guid: 57825c5b70659e04580c8aec0d09102a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7660895429550155098, guid: 57825c5b70659e04580c8aec0d09102a,
         type: 3}
@@ -2605,6 +2605,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 165993781}
+    - target: {fileID: 7660895429550155099, guid: 57825c5b70659e04580c8aec0d09102a,
+        type: 3}
+      propertyPath: m_PlaneDistance
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7660895429331190828, guid: 57825c5b70659e04580c8aec0d09102a,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -2614,6 +2619,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7660895429550155092, guid: 57825c5b70659e04580c8aec0d09102a,
+        type: 3}
+      propertyPath: m_ScaleFactor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7660895429550155093, guid: 57825c5b70659e04580c8aec0d09102a,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7660895429331190829, guid: 57825c5b70659e04580c8aec0d09102a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57825c5b70659e04580c8aec0d09102a, type: 3}
