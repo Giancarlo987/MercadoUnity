@@ -52,11 +52,7 @@ public class Pointer : MonoBehaviour
         if (m_CurrentObject.tag.Equals("Salesman"))
         {
             m_SubtitleCanvas.enabled = true;
-
-            if (!audioPlay)
-                m_Subtitle.text = "Press the trigger to PLAY the audio";
-            else
-                m_Subtitle.text = "Press the trigger to STOP the audio";
+            m_Subtitle.text = "Press the trigger to interact";           
         }
         else
         {
@@ -87,10 +83,10 @@ public class Pointer : MonoBehaviour
         PlayerEvents.OnControllerSource += UpdateOrigin;
         PlayerEvents.OnTriggerDown += ProcessTriggerDown;
         PlayerEvents.OnBackDown += BackButtonDown;
-        PlayerEvents.OnTouchpadDown += ProcessTouchpadDown;
+        //PlayerEvents.OnTouchpadDown += ProcessTouchpadDown;
 
-        PlayerEvents.OnTouchpadTouchDown += ChangeLinerendererPressedColor;
-        PlayerEvents.OnTouchpadTouchUp += ChangeLinerendererUnpressedColor;
+        //PlayerEvents.OnTouchpadTouchDown += ChangeLinerendererPressedColor;
+        //PlayerEvents.OnTouchpadTouchUp += ChangeLinerendererUnpressedColor;
     }
 
     private void OnDestroy()
@@ -98,10 +94,10 @@ public class Pointer : MonoBehaviour
         PlayerEvents.OnControllerSource -= UpdateOrigin;
         PlayerEvents.OnTriggerDown -= ProcessTriggerDown;
         PlayerEvents.OnBackDown -= BackButtonDown;
-        PlayerEvents.OnTouchpadDown -= ProcessTouchpadDown;
+        //PlayerEvents.OnTouchpadDown -= ProcessTouchpadDown;
 
-        PlayerEvents.OnTouchpadTouchDown -= ChangeLinerendererPressedColor;
-        PlayerEvents.OnTouchpadTouchUp -= ChangeLinerendererUnpressedColor;
+        //PlayerEvents.OnTouchpadTouchDown -= ChangeLinerendererPressedColor;
+        //PlayerEvents.OnTouchpadTouchUp -= ChangeLinerendererUnpressedColor;
     }
 
     private void UpdateOrigin(OVRInput.Controller controller, GameObject controllerObject)
@@ -167,7 +163,7 @@ public class Pointer : MonoBehaviour
             //if (!interactble.isAudioPlaying)
             //  interactble.PlaySound();
             //else
-            //s  interactble.StopSound();
+            //  interactble.StopSound();
 
             // Play salesman's audio
             if (!salesman.isAudioPlaying)
@@ -188,7 +184,8 @@ public class Pointer : MonoBehaviour
             return;
 
         m_LineRenderer.enabled = !m_LineRenderer.enabled;
-        m_SubtitleCanvas.enabled = !m_SubtitleCanvas.enabled;
+        if(m_SubtitleCanvas.enabled)
+            m_SubtitleCanvas.enabled = false;
     }
 
     public void BackButtonDown()

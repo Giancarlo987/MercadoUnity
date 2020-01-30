@@ -15,8 +15,8 @@ public class Carrito : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        x = carrito.position.x / 2;
-        z = carrito.position.z /2;
+        x = carrito.position.x/8;
+        z = carrito.position.z/8;
         transform.localPosition = new Vector3(x, z, 0);
 
 

@@ -122,7 +122,7 @@ public class PlayerEvents : MonoBehaviour
                 OnBackDown();
         }
 
-        // Touchpad touch pressed
+        /*// Touchpad touch pressed
         if (OVRInput.GetDown(OVRInput.Touch.PrimaryTouchpad))
         {
             if (OnTouchpadTouchDown != null)
@@ -134,7 +134,7 @@ public class PlayerEvents : MonoBehaviour
         {
             if (OnTouchpadTouchUp != null)
                 OnTouchpadTouchUp();
-        }
+        }*/
     }
 
     private OVRInput.Controller UpdateSource(OVRInput.Controller check, OVRInput.Controller previous) {

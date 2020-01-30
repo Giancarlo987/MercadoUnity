@@ -17,7 +17,10 @@ public class Salesman : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (!audioSource.isPlaying)
+        {
+            isAudioPlaying = false;
+        }
     }
 
     public void PlaySound()
