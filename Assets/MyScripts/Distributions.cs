@@ -5,7 +5,6 @@ using UnityEngine;
 public class Distributions : MonoBehaviour
 {
     private List<GameObject> prod1 = new List<GameObject>();
-
     private List<Vector3> prod1Dist1 = new List<Vector3>();
     private List<Vector3> prod1Dist2 = new List<Vector3>();
 
